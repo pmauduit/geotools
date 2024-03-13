@@ -115,6 +115,12 @@ public class SimpleFeatureTypeBuilder {
     /** Naming: local name */
     protected String local;
 
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
+
+    protected String separator = ":";
+
     /** Naming: uri indicating scope */
     protected String uri;
 
@@ -930,7 +936,7 @@ public class SimpleFeatureTypeBuilder {
     protected Name name() {
         if (local == null) return null;
 
-        return new NameImpl(uri, local);
+        return new NameImpl(uri, separator, local);
     }
 
     /** Accessor for attributes (will create attributes list if needed) */

@@ -257,7 +257,7 @@ public abstract class ContentDataStore implements DataStore {
      * @see DataStore#getTypeNames()
      */
     @Override
-    public final String[] getTypeNames() throws IOException {
+    public String[] getTypeNames() throws IOException {
         List<Name> typeNames = createTypeNames();
         String[] names = new String[typeNames.size()];
 

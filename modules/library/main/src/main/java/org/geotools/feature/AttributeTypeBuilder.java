@@ -92,6 +92,10 @@ public class AttributeTypeBuilder {
     /** Local name used to name a descriptor; or combined with namespaceURI to name a type. */
     protected String name;
 
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
+
     /** Separator used to combine namespaceURI and name. */
     private String separator = ":";
 

@@ -148,7 +148,7 @@ import org.locationtech.jts.geom.Point;
  *
  * @author Justin Deoliveira, The Open Planning Project
  */
-public final class JDBCDataStore extends ContentDataStore implements GmlObjectStore {
+public class JDBCDataStore extends ContentDataStore implements GmlObjectStore {
 
     /** Caches the "setValue" method in various aggregate visitors */
     private static SoftValueHashMap<Class, Method> AGGREGATE_SETVALUE_CACHE =
@@ -3525,7 +3525,7 @@ public final class JDBCDataStore extends ContentDataStore implements GmlObjectSt
         return sql.toString();
     }
 
-    private void applySearchHints(SimpleFeatureType featureType, Query query, StringBuffer sql) {
+    protected void applySearchHints(SimpleFeatureType featureType, Query query, StringBuffer sql) {
         // If there are virtual tables in the query, ask the dialect whether select hints should be
         // omitted
         if (virtualTables.containsKey(featureType.getTypeName())
@@ -3658,7 +3658,7 @@ public final class JDBCDataStore extends ContentDataStore implements GmlObjectSt
         }
     }
 
-    private FilterToSQL getFilterToSQL(SimpleFeatureType fullSchema) {
+    protected FilterToSQL getFilterToSQL(SimpleFeatureType fullSchema) {
         return dialect instanceof PreparedStatementSQLDialect
                 ? createPreparedFilterToSQL(fullSchema)
                 : createFilterToSQL(fullSchema);
@@ -4227,7 +4227,7 @@ public final class JDBCDataStore extends ContentDataStore implements GmlObjectSt
      * Returns a GeometryDescriptor backing the specified expression, if it's a PropertyName
      * matching a geometry column in the table. Null otherwise.
      */
-    private GeometryDescriptor getGeometryDescriptor(
+    protected GeometryDescriptor getGeometryDescriptor(
             SimpleFeatureType featureType, Expression expression) {
         if (!(expression instanceof PropertyName)) return null;
         PropertyName pn = (PropertyName) expression;
@@ -4236,12 +4236,12 @@ public final class JDBCDataStore extends ContentDataStore implements GmlObjectSt
         return null;
     }
 
-    private String getAggregateExpressionAlias(int idx) {
+    protected String getAggregateExpressionAlias(int idx) {
         return "gt_agg_" + idx;
     }
 
     /** Returns true if the expressions have anything but property names */
-    private boolean hasComplexExpressions(List<Expression> expressions) {
+    protected boolean hasComplexExpressions(List<Expression> expressions) {
         if (expressions == null || expressions.isEmpty()) {
             return false;
         }

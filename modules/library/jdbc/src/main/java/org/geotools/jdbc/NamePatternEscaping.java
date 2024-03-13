@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  *
  * @see org.geotools.jdbc.JDBCDataStore#escapeNamePattern(java.sql.DatabaseMetaData, String)
  */
-class NamePatternEscaping {
+public class NamePatternEscaping {
     private final String escape;
     private final Pattern replacementPattern;
     private final String replacement;

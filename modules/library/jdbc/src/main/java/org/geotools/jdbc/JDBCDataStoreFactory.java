@@ -294,8 +294,17 @@ public abstract class JDBCDataStoreFactory implements DataStoreFactorySpi {
 
     @Override
     public final JDBCDataStore createDataStore(Map<String, ?> params) throws IOException {
-        JDBCDataStore dataStore = new JDBCDataStore();
+        JDBCDataStore dataStore;
 
+        Boolean schemaAware = (Boolean) params.get("schemaAware");
+        if (schemaAware == null) {
+            schemaAware = false;
+        }
+        if (schemaAware) {
+            dataStore = new SchemaAwareJDBCDataStore();
+        } else {
+            dataStore = new JDBCDataStore();
+        }
         // dialect
         final SQLDialect dialect = createSQLDialect(dataStore, params);
         dataStore.setSQLDialect(dialect);
